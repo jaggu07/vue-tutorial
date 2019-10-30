@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+<div id="sudoku-demo" class="demo">
+        <h1>Lazy Sudoku</h1>
+        <p>Keep hitting the shuffle button until you win.</p>
+      
+        <button @click="shuffle">
+          Shuffle
+        </button>
+        <transition-group name="cell" tag="div" class="container">
+          <div v-for="cell in cells" :key="cell.id" class="cell">
+            {{ cell.number }}
+          </div>
+        </transition-group>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+<script>
+new Vue({
+  el: '#sudoku-demo',
+  data: {
+    cells: Array.apply(null, { length: 81 })
+    	.map(function (_, index) { 
+      	return {
+        	id: index,
+        	number: index % 9 + 1
+        }
+      })
+  },
+  methods: {
+  	shuffle: function () {
+    	this.cells = _.shuffle(this.cells)
+    }
+  }
+})
+</script>
+</body>
+</html>
